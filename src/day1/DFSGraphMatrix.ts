@@ -1,4 +1,4 @@
-function walk(graph:WeightedAdjacencyList, curr:number, needle:number, seen:boolean[], path:number[]): boolean{
+function walk(graph:WeightedAdjacencyMatrix, curr:number, needle:number, seen:boolean[], path:number[]): boolean{
     
     if (seen[curr]){
         return false
@@ -16,9 +16,9 @@ function walk(graph:WeightedAdjacencyList, curr:number, needle:number, seen:bool
     //recurse
     const list = graph[curr];
     for (let i = 0; i < list.length; ++i){
-        const edge = list [i];
+        if (list[i] === 0) continue
 
-        if (walk(graph, edge.to, needle, seen, path)){
+        if (walk(graph, i, needle, seen, path)){
             return true;
         }
     }
@@ -28,7 +28,7 @@ function walk(graph:WeightedAdjacencyList, curr:number, needle:number, seen:bool
     return false
 }
 
-export default function dfs(graph: WeightedAdjacencyList, source: number, needle: number): number[] | null {
+export default function dfs(graph: WeightedAdjacencyMatrix, source: number, needle: number): number[] | null {
     const seen: boolean[] = new Array(graph.length).fill(false)
     const path: number[] = [];
 
